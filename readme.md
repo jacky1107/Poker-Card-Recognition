@@ -31,8 +31,7 @@ Opening: dilation after erosion
 Closing: erosion  after dilation
 ```
 After doing the preprocessing, we can get the following images.
-![image](https://github.com/jacky1107/cardRecognition/tree/master/morphology/1.jpg)
-![image](https://github.com/jacky1107/cardRecognition/tree/master/morphology/2.jpg)
+![image](https://github.com/jacky1107/cardRecognition/blob/master/1.jpg)
 
 # Prediction
 
