@@ -80,24 +80,19 @@ for testName in range(len(testData)):
 shutil.rmtree("predict")
 os.mkdir("predict")
 
-groundTruth = [
-    "6S", "JC", "6H" , "AS", "5D", "10D",
-    "JC", "AS", "6H", "5D", "6S", "10D",
-    ]
-
 ground = 0
 correct = 0
 wrong = 0
 predict = True
 check = False
-for dst in dsts:
+for j, dst in enumerate(dsts):
     dst_res = copy.deepcopy(dst)
 
-    red, jackQueenKing = pokerPredict(dst, groundTruth, ground)
+    red, jackQueenKing = pokerPredict(dst)
     dst_gray =  cv2.cvtColor(dst, cv2.COLOR_BGR2GRAY)
     dst_thres = cv2.threshold(dst_gray, 127, 255, cv2.THRESH_BINARY_INV)[1]
 
-    # cv2.imwrite("predict/" + str(ground) + "_truth" + ".jpg", dst_res)
+    cv2.imwrite("predict/" + str(ground) + "_truth" + ".jpg", dst_res)
     if predict:
         nameList = []
         matchPointsList = []
@@ -116,21 +111,12 @@ for dst in dsts:
             elif not checkJQK and not checkRed:
                 img_train_blur, nameList, matchPointsList = match(train, dst_res, nameList, matchPointsList, name)
 
-        predictCard = printPrediction(nameList, matchPointsList, groundTruth, ground, red, jackQueenKing, check=check)
+        predictCard = printPrediction(nameList, matchPointsList, red, jackQueenKing, check=check)
 
         train = os.path.join(trainPath, predictCard + ".png")
         img_train_clr = cv2.imread(train)
         img_train_clr = img_train_clr * 0.8
         img_train_clr = img_train_clr.astype("uint8")
-        # cv2.imwrite("predict/" + str(ground) + "_predict_" + predictCard + ".jpg", img_train_clr)
-        print(f"Truth: {groundTruth[ground]}")
-        print(f"Predict: {predictCard}")
-        print("\n")
-        if predictCard == groundTruth[ground]: correct += 1
-        else: wrong += 1
+        cv2.imwrite("predict/" + str(ground) + "_predict_" + predictCard + ".jpg", img_train_clr)
+    print(f"{j}/{len(dsts)}")
     ground += 1
-
-acc = correct / (correct + wrong)
-print(f"Correct: {correct}")
-print(f"Wrong: {wrong}")
-print(f"Accuracy: {acc}")

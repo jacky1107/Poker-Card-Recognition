@@ -16,7 +16,7 @@ def match(train, dst, nameList, matchPointsList, name):
     matchPointsList.append(len(matchPoints))
     return img_train_blur, nameList, matchPointsList
 
-def pokerPredict(dst, groundTruth, ground):
+def pokerPredict(dst):
     h, w, c = dst.shape
     dst_gray = cv2.cvtColor(dst, cv2.COLOR_BGR2GRAY)
     dst_thres = cv2.threshold(dst_gray, 200, 255, cv2.THRESH_BINARY_INV)[1]
@@ -35,15 +35,11 @@ def pokerPredict(dst, groundTruth, ground):
     elif area > 3e+5: jackQueenKing = True
     return red, jackQueenKing
 
-def printPrediction(nameList, matchPointsList, groundTruth, ground, red, jackQueenKing, check=False):
+def printPrediction(nameList, matchPointsList, red, jackQueenKing, check=False):
     nameList = np.array(nameList)
     sortedList = np.argsort(matchPointsList)
     nameList = nameList[sortedList]
     matchPointsList = sorted(matchPointsList)
-    if check:
-        for i in range(len(matchPointsList)):
-            printing(i, nameList, matchPointsList, groundTruth, ground)
-        print("\n")
     return nameList[-1]
 
 def printing(i, nameList, matchPointsList, groundTruth, ground):
