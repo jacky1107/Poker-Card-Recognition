@@ -66,7 +66,7 @@ def findminMax(oneDarray, direction=""):
     return -1
 
 def getCardCornerPoints(edge, thres=0.05):
-    contours,hierarchy = cv2.findContours(edge, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+    contours, hierarchy = cv2.findContours(edge, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
     contours = sorted(contours, key=cv2.contourArea, reverse=True)
     card_point = None
     for contour in contours:
@@ -79,7 +79,6 @@ def getCardCornerPoints(edge, thres=0.05):
     return card_point, contours
 
 def perspectiveTransform(card_point, image):
-    # If the card_point are exactly 4 points, set the point1~4 as follow
     point1 = card_point[0][0]
     point2 = card_point[1][0]
     point3 = card_point[2][0]
@@ -95,14 +94,12 @@ def perspectiveTransform(card_point, image):
     len1234 = (len12 + len34) / 2
     len2341 = (len23 + len41) / 2
 
-    # If the len12 is smaller than len23, means len12 and len34 are the short side
     if len1234 <= len2341:
-      
         width = len1234
         height = len2341
         transform_point = [[width, 0], [0, 0], [0, height], [width, height]]
-    elif len1234 > len2341:
 
+    elif len1234 > len2341:
         width = len2341
         height = len1234
         transform_point = [[0, 0], [0, height], [width, height], [width, 0]]
