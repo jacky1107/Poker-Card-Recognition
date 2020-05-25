@@ -24,11 +24,15 @@ python3 main.py
 1. Resize Image to (1000, 1000) to make sure that all input data have same size.
 2. Use the sobel filter to detect the edge.
 3. Remove noise from threshold the image, but this method will return edge image with broken line (Because it is hard to decide the threshold). In order to solve that problem, I use Morphology on the image.
+4. Morphology can close or open the line, so that, I can find the completed edge of image. (But it also enhance the background).
 - Morphology has two operations
 ```
 Opening: dilation after erosion
 Closing: erosion  after dilation
 ```
+After doing the preprocessing, we can get the following images.
+![image](https://github.com/jacky1107/cardRecognition/morphology/1.jpg)
+![image](https://github.com/jacky1107/cardRecognition/morphology/2.jpg)
 
 # Prediction
 
@@ -48,47 +52,3 @@ Add a file evaluation.pdf
     Did the results highlight shortcomings in the system?
     
     Do you have any ideas for how to fix those? 
-
-
-# How to Compile the program
-
-Please make sure you have installed those packages.
-```
-numpy
-matplotlib
-pickle
-```
-
-- troubleshooting: pickle is not available if python.version < 3.6
-
-Running:
-``
-python main.py [-s] [save_img, default:True]
-``
-The saved image will save into output folder   
-After running main.py, it will show these infomation below:  
-1. The true path of the robot  
-2. The output of the Kalman Filter for the path of the robot  
-3. In a separate subwindow show the variance of the Kalman Filter against time  
-4. In a separate subwindow show the error of the Kalman Filter path against time  
-5. Average error  
-6. variance of error  
-
-# Object detection example using Kalman filter
-Interesting features and extensions of Kalman filter.
-After running the code, make sure you have installed this package.
-```
-pip install opencv-python
-```
-Running:
-``
-python find_targeting_kalman_filter.py
-``
-
-This example will detect object with color blue.  
-And green point is predicted value of Kalman filter.  
-Red point is true point which is centroid of object.
-
-The result shows that the green point will track the red point as much as possible.  
-# cardRecognition
-# cardRecognition

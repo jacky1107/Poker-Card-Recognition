@@ -7,8 +7,11 @@ import numpy as np
 from config import *
 from data import getData
 
-shutil.rmtree("test")
-os.mkdir("test")
+shutil.rmtree("predict")
+os.mkdir("predict")
+
+shutil.rmtree("morphology")
+os.mkdir("morphology")
 
 dsts = []
 # groundTruth = [
@@ -47,6 +50,7 @@ for testName in range(len(testData)):
     img_dilate = cv2.dilate(img_thres, kernel, iterations=3)
     img_erode = cv2.erode(img_dilate, kernel, iterations=3)
 
+    cv2.imwrite("morphology/" + testData[testName], img_erode)
     boxs = []
     result = []
     nlabels, labels, stats, centroids = cv2.connectedComponentsWithStats(img_erode)
