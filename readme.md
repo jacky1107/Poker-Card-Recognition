@@ -6,7 +6,7 @@ All code is written in Python, if there is any question please feel free to ask.
 
 # Implementation
 
-## dependencies
+### dependencies
 Please make sure you have installed those packages.
 ```
 cv2
@@ -14,12 +14,21 @@ numpy
 shutil
 ```
 
-## Run the program:
+### Run program:
 ```
 python3 main.py
 ```
 
 # Preprocessing
+
+1. Resize Image to (1000, 1000) to make sure that all input data have same size.
+2. Use the sobel filter to detect the edge.
+3. Remove noise from threshold the image, but this method will return edge image with broken line (Because it is hard to decide the threshold). In order to solve that problem, I use Morphology on the image.
+- Morphology has two operations
+```
+Opening: dilation after erosion
+Closing: erosion  after dilation
+```
 
 # Prediction
 
