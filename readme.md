@@ -46,6 +46,13 @@ There is the results of Perspective Transfromation below.
 ![image](https://github.com/jacky1107/cardRecognition/blob/master/README_Image/perspectiveTransform.png)
 
 # Prediction
+Now, I have every single card that has being transformed.
+Next, I use orb detection to match 52 pokers (Ground Truth) and compare which matched points have maximum values.
+Furthermore, in order to improve performance, I calculate mean of histogram of red channel and area of space/clubs/hearts/diamonds. After that, I can classify space/clubs or hearts/diamonds or JQK.
+
+The results show below.
+![image](https://github.com/jacky1107/cardRecognition/blob/master/README_Image/result1.png)
+![image](https://github.com/jacky1107/cardRecognition/blob/master/README_Image/result2.png)
 
 # Evaluation
 
