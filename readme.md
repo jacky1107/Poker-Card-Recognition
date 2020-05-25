@@ -54,19 +54,9 @@ The results show below.
 ![image](https://github.com/jacky1107/cardRecognition/blob/master/README_Image/result1.png)
 ![image](https://github.com/jacky1107/cardRecognition/blob/master/README_Image/result2.png)
 
-# Evaluation
+# Conclusion and Evaluation
 
-# Reference
-
-(a) what other sources you used apart from the lecture material used in class during your work on the assignment
-(b) how to compile and run your program
-(c) any interesting features and extensions of your assignment.
-
-Add a file evaluation.pdf
-    which shows the results of the requested evaluations?
-
-    Were the results expected or did they surprise you?
-    
-    Did the results highlight shortcomings in the system?
-    
-    Do you have any ideas for how to fix those? 
+The model predicts four cards successfully and failed two cards, and that the failed cards are Clubs J and Diamonds Q. Although precict failed, features of J and Q are very close, and predict diamond successfully.
+And I think that the following are failed reasons: image too blur, difference of color too big.
+而預測失敗的卡是梅花J預測成黑桃Q、菱形5預測成菱形10，雖然預測錯誤，但JQ的特徵算是非常接近，也成功預測到菱形。
+我認為預測失敗的原因有以下幾項：圖像太模糊、顏色差異太大等等。

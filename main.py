@@ -97,13 +97,14 @@ for dst in dsts:
     dst_gray =  cv2.cvtColor(dst, cv2.COLOR_BGR2GRAY)
     dst_thres = cv2.threshold(dst_gray, 127, 255, cv2.THRESH_BINARY_INV)[1]
 
-    cv2.imwrite("predict/" + str(ground) + "_truth" + ".jpg", dst_res)
+    # cv2.imwrite("predict/" + str(ground) + "_truth" + ".jpg", dst_res)
     if predict:
         nameList = []
         matchPointsList = []
         for trainName in range(len(trainData)):
             name = trainData[trainName].split(".")[0]
             train = os.path.join(trainPath, trainData[trainName])
+            img_train_clr = cv2.imread(train)
             checkJQK = "J" in name or "Q" in name or "K" in name
             checkRed = "H" in name or "D" in name
             if jackQueenKing:
@@ -121,7 +122,7 @@ for dst in dsts:
         img_train_clr = cv2.imread(train)
         img_train_clr = img_train_clr * 0.8
         img_train_clr = img_train_clr.astype("uint8")
-        cv2.imwrite("predict/" + str(ground) + "_predict_" + predictCard + ".jpg", img_train_clr)
+        # cv2.imwrite("predict/" + str(ground) + "_predict_" + predictCard + ".jpg", img_train_clr)
         print(f"Truth: {groundTruth[ground]}")
         print(f"Predict: {predictCard}")
         print("\n")
