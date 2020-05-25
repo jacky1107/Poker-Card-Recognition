@@ -7,23 +7,7 @@ import numpy as np
 from config import *
 from data import getData
 
-shutil.rmtree("predict")
-os.mkdir("predict")
-
-shutil.rmtree("morphology")
-os.mkdir("morphology")
-
 dsts = []
-# groundTruth = [
-#     "6S", "JC", "6H" , "AS", "5D", "10D",
-#     "AS", "JC", "10D", "6H", "5D",
-#     "JC", "AS", "6H", "5D", "6S", "10D"
-#     ]
-
-groundTruth = [
-    "6S", "JC", "6H" , "AS", "5D", "10D"
-    "JC", "AS", "6H", "5D", "6S", "10D",
-    ]
 
 path = getData()
 currentPath = os.getcwd()
@@ -50,7 +34,6 @@ for testName in range(len(testData)):
     img_dilate = cv2.dilate(img_thres, kernel, iterations=3)
     img_erode = cv2.erode(img_dilate, kernel, iterations=3)
 
-    cv2.imwrite("morphology/" + testData[testName], img_erode)
     boxs = []
     result = []
     nlabels, labels, stats, centroids = cv2.connectedComponentsWithStats(img_erode)
@@ -94,51 +77,59 @@ for testName in range(len(testData)):
                     dst = cv2.resize(dst, (691, 1056))
                     dsts.append(dst)
 
-ground = 0
-correct = 0
-wrong = 0
-predict = True
-check = False
-for dst in dsts:
-    dst_res = copy.deepcopy(dst)
+# shutil.rmtree("predict")
+# os.mkdir("predict")
 
-    red, jackQueenKing = pokerPredict(dst, groundTruth, ground)
-    dst_gray =  cv2.cvtColor(dst, cv2.COLOR_BGR2GRAY)
-    dst_thres = cv2.threshold(dst_gray, 127, 255, cv2.THRESH_BINARY_INV)[1]
+# groundTruth = [
+#     "6S", "JC", "6H" , "AS", "5D", "10D",
+#     "JC", "AS", "6H", "5D", "6S", "10D",
+#     ]
 
-    cv2.imwrite("predict/" + str(ground) + "_truth" + ".jpg", dst_res)
-    if predict:
-        nameList = []
-        matchPointsList = []
-        for trainName in range(len(trainData)):
-            name = trainData[trainName].split(".")[0]
-            train = os.path.join(trainPath, trainData[trainName])
-            checkJQK = "J" in name or "Q" in name or "K" in name
-            checkRed = "H" in name or "D" in name
-            if jackQueenKing:
-                if checkJQK:
-                    img_train_blur, nameList, matchPointsList = match(train, dst_res, nameList, matchPointsList, name)
-            elif red:
-                if checkRed:
-                    img_train_blur, nameList, matchPointsList = match(train, dst_res, nameList, matchPointsList, name)
-            elif not checkJQK and not checkRed:
-                img_train_blur, nameList, matchPointsList = match(train, dst_res, nameList, matchPointsList, name)
+# ground = 0
+# correct = 0
+# wrong = 0
+# predict = True
+# check = False
+# for dst in dsts:
+#     dst_res = copy.deepcopy(dst)
 
-        predictCard = printPrediction(nameList, matchPointsList, groundTruth, ground, red, jackQueenKing, check=check)
+#     red, jackQueenKing = pokerPredict(dst, groundTruth, ground)
+#     dst_gray =  cv2.cvtColor(dst, cv2.COLOR_BGR2GRAY)
+#     dst_thres = cv2.threshold(dst_gray, 127, 255, cv2.THRESH_BINARY_INV)[1]
 
-        train = os.path.join(trainPath, predictCard + ".png")
-        img_train_clr = cv2.imread(train)
-        img_train_clr = img_train_clr * 0.8
-        img_train_clr = img_train_clr.astype("uint8")
-        cv2.imwrite("predict/" + str(ground) + "_predict_" + predictCard + ".jpg", img_train_clr)
-        print(f"Truth: {groundTruth[ground]}")
-        print(f"Predict: {predictCard}")
-        print("\n")
-        if predictCard == groundTruth[ground]: correct += 1
-        else: wrong += 1
-    ground += 1
+#     cv2.imwrite("predict/" + str(ground) + "_truth" + ".jpg", dst_res)
+#     if predict:
+#         nameList = []
+#         matchPointsList = []
+#         for trainName in range(len(trainData)):
+#             name = trainData[trainName].split(".")[0]
+#             train = os.path.join(trainPath, trainData[trainName])
+#             checkJQK = "J" in name or "Q" in name or "K" in name
+#             checkRed = "H" in name or "D" in name
+#             if jackQueenKing:
+#                 if checkJQK:
+#                     img_train_blur, nameList, matchPointsList = match(train, dst_res, nameList, matchPointsList, name)
+#             elif red:
+#                 if checkRed:
+#                     img_train_blur, nameList, matchPointsList = match(train, dst_res, nameList, matchPointsList, name)
+#             elif not checkJQK and not checkRed:
+#                 img_train_blur, nameList, matchPointsList = match(train, dst_res, nameList, matchPointsList, name)
 
-acc = correct / (correct + wrong)
-print(f"Correct: {correct}")
-print(f"Wrong: {wrong}")
-print(f"Accuracy: {acc}")
+#         predictCard = printPrediction(nameList, matchPointsList, groundTruth, ground, red, jackQueenKing, check=check)
+
+#         train = os.path.join(trainPath, predictCard + ".png")
+#         img_train_clr = cv2.imread(train)
+#         img_train_clr = img_train_clr * 0.8
+#         img_train_clr = img_train_clr.astype("uint8")
+#         cv2.imwrite("predict/" + str(ground) + "_predict_" + predictCard + ".jpg", img_train_clr)
+#         print(f"Truth: {groundTruth[ground]}")
+#         print(f"Predict: {predictCard}")
+#         print("\n")
+#         if predictCard == groundTruth[ground]: correct += 1
+#         else: wrong += 1
+#     ground += 1
+
+# acc = correct / (correct + wrong)
+# print(f"Correct: {correct}")
+# print(f"Wrong: {wrong}")
+# print(f"Accuracy: {acc}")

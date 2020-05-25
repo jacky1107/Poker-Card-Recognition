@@ -23,15 +23,21 @@ python3 main.py
 
 1. Resize Image to (1000, 1000) to make sure that all input data have same size.
 2. Use the sobel filter to detect the edge.
-3. Remove noise from threshold the image, but this method will return edge image with broken line (Because it is hard to decide the threshold). In order to solve that problem, I use Morphology on the image.
-4. Morphology can close or open the line, so that, I can find the completed edge of image. (But it also enhance the background).
+3. Remove noise from threshold the image, but this method will return edge with broken lines (Because it is hard to decide the threshold). In order to solve that problem, I use Morphology on the image.
+4. Morphology can close or open the line, so that, I can find the completed edge with background infomation.
 - Morphology has two operations
 ```
 Opening: dilation after erosion
 Closing: erosion  after dilation
 ```
-After doing the preprocessing, we can get the following images.
-![image](https://github.com/jacky1107/cardRecognition/blob/master/morphology/1.jpg)
+After doing the preprocessing, I can get the following images.
+<!-- ![image](https://github.com/jacky1107/cardRecognition/blob/master/morphology/1.jpg) -->
+
+# Region Of Interesting
+
+Next, after I get the closing image, I calculate the mean of each block.
+That means, if I get higher mean, then it shows that this block has higher possibility is card.
+After filter the image, I can get the following image.
 
 # Prediction
 
