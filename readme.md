@@ -31,19 +31,19 @@ Opening: dilation after erosion
 Closing: erosion  after dilation
 ```
 After doing the preprocessing, I can get the following images.
-![image](https://github.com/jacky1107/cardRecognition/blob/master/readmeImage/compare.png)
+![image](https://github.com/jacky1107/cardRecognition/blob/master/README_Image/compare.png)
 
 # Region Of Interesting
 
 After I get the closing image, I calculate the mean of each block.
 That means, if I get higher mean, then it shows that this block has higher possibility is card.
 After filter the image, I can get the following image.
-![image](https://github.com/jacky1107/cardRecognition/blob/master/readmeImage/regionOfInteresting.png)
+![image](https://github.com/jacky1107/cardRecognition/blob/master/README_Image/regionOfInteresting.png)
 
 After that, I need to get the points in each block in order to do [Perspective Transfromation](https://www.pyimagesearch.com/2014/08/25/4-point-opencv-getperspective-transform-example/)
 
 There is the results of Perspective Transfromation below.
-![image](https://github.com/jacky1107/cardRecognition/blob/master/readmeImage/perspectiveTransform.png)
+![image](https://github.com/jacky1107/cardRecognition/blob/master/README_Image/perspectiveTransform.png)
 
 # Prediction
 
