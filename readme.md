@@ -31,13 +31,14 @@ Opening: dilation after erosion
 Closing: erosion  after dilation
 ```
 After doing the preprocessing, I can get the following images.
-<!-- ![image](https://github.com/jacky1107/cardRecognition/blob/master/morphology/1.jpg) -->
+![image](https://github.com/jacky1107/cardRecognition/blob/master/readmeImage/compare.png)
 
 # Region Of Interesting
 
 Next, after I get the closing image, I calculate the mean of each block.
 That means, if I get higher mean, then it shows that this block has higher possibility is card.
 After filter the image, I can get the following image.
+![image](https://github.com/jacky1107/cardRecognition/blob/master/readmeImage/regionOfInteresting.png)
 
 # Prediction
 
